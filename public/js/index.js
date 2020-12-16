@@ -16,3 +16,25 @@ socket.on("disconnect", () => {
 socket.on("newMessage", (message) => {
     console.log("newMessage", message);
 });
+
+socket.emit(
+    "createMessage",
+    {
+        from: "John",
+        text: "Hey",
+    },
+    (message) => console.log("Got it.", message)
+);
+
+document.querySelector("#submit-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    socket.emit(
+        "createMessage",
+        {
+            from: "User",
+            text: document.querySelector('input[name="message"]').value,
+        },
+        () => {}
+    );
+});
